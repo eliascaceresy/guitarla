@@ -1,7 +1,9 @@
+import { useMemo } from "react";
+
 const Header = ({ cart }) => {
-  const cartTotal = () => {
+  const cartTotal = useMemo(() => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+  }, [cart]);
 
   return (
     <header className="py-5 header">
@@ -58,7 +60,7 @@ const Header = ({ cart }) => {
                       </tbody>
                     </table>
                     <p className="text-end">
-                      Total pagar: <span className="fw-bold">${cartTotal()}</span>
+                      Total pagar: <span className="fw-bold">${cartTotal}</span>
                     </p>
                     <button className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
                   </>
