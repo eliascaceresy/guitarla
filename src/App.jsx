@@ -6,11 +6,18 @@ import { db } from "./data/db";
 
 function App() {
   const [guitars, setGuitars] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const localCart = localStorage.getItem("cart");
+    return localCart ? JSON.parse(localCart) : [];
+  });
 
   useEffect(() => {
     setGuitars(db);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = product => {
     const item = {};
