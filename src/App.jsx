@@ -31,9 +31,43 @@ function App() {
     setCart(updatedCart);
   };
 
+  const increaseQuantity = id => {
+    const updatedCart = cart.map(item => {
+      if (item.id === id) {
+        return { ...item, quantity: item.quantity + 1 };
+      } else {
+        return item;
+      }
+    });
+
+    setCart(updatedCart);
+  };
+
+  const decreaseQuantity = id => {
+    const updatedCart = cart.map(item => {
+      if (item.id === id && item.quantity > 1) {
+        return { ...item, quantity: item.quantity - 1 };
+      } else {
+        return item;
+      }
+    });
+
+    setCart(updatedCart);
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
   return (
     <>
-      <Header cart={cart} removeToCart={removeToCart} />
+      <Header
+        cart={cart}
+        removeToCart={removeToCart}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
+        clearCart={clearCart}
+      />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
 

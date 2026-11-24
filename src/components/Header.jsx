@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-const Header = ({ cart, removeToCart }) => {
+const Header = ({ cart, removeToCart, increaseQuantity, decreaseQuantity, clearCart }) => {
   const cartTotal = useMemo(() => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   }, [cart]);
@@ -41,11 +41,19 @@ const Header = ({ cart, removeToCart }) => {
                               <td>{product.name}</td>
                               <td className="fw-bold">${product.price}</td>
                               <td className="flex align-items-start gap-4">
-                                <button type="button" className="btn btn-dark">
+                                <button
+                                  type="button"
+                                  className="btn btn-dark"
+                                  onClick={() => decreaseQuantity(product.id)}
+                                >
                                   -
                                 </button>
                                 {product.quantity}
-                                <button type="button" className="btn btn-dark">
+                                <button
+                                  type="button"
+                                  className="btn btn-dark"
+                                  onClick={() => increaseQuantity(product.id)}
+                                >
                                   +
                                 </button>
                               </td>
@@ -66,7 +74,9 @@ const Header = ({ cart, removeToCart }) => {
                     <p className="text-end">
                       Total pagar: <span className="fw-bold">${cartTotal}</span>
                     </p>
-                    <button className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                    <button className="btn btn-dark w-100 mt-3 p-2" onClick={clearCart}>
+                      Vaciar Carrito
+                    </button>
                   </>
                 ) : (
                   <p className="text-center">El carrito esta vacio</p>
